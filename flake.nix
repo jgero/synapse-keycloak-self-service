@@ -32,7 +32,7 @@
         '';
       };
       packages.${system} = rec {
-        bin = pkgs.buildGoModule {
+        goMod = pkgs.buildGoModule {
           pname = "synapse-keycloak-self-service";
           version = "1.0";
           # vendorHash = nixpkgs.lib.fakeHash;
@@ -40,15 +40,12 @@
           src = ./.;
         };
         default = pkgs.dockerTools.buildLayeredImage {
-          name = "ghcr.io/jgero/${bin.pname}";
+          name = "ghcr.io/jgero/${goMod.pname}";
           tag = "latest";
-          contents = with pkgs; [ cacert bin ];
+          contents = with pkgs; [ cacert ];
           maxLayers = 10;
           config = {
-            Cmd = [ "${bin}/bin/${bin.pname}" ];
-            Env = with pkgs; [
-              "SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt"
-            ];
+            Cmd = [ "${goMod}/bin/${goMod.pname}" ];
           };
         };
       };
