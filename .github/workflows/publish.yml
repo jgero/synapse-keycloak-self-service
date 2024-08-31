@@ -14,10 +14,13 @@ jobs:
         run: |
           nix build .#
       - uses: docker/setup-buildx-action@v2
-      - run: docker load --input ./result
       - uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - run: docker push ghcr.io/jgero/synapse-keycloak-self-service
+      - run: |
+          docker load --input ./result
+          tag=$(date +%s)
+          docker image tag ghcr.io/jgero/synapse-keycloak-self-service ghcr.io/jgero/synapse-keycloak-self-service:${tag}
+          docker push ghcr.io/jgero/synapse-keycloak-self-service:${tag}
