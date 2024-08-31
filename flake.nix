@@ -41,7 +41,7 @@
         };
         default = pkgs.dockerTools.buildLayeredImage {
           name = "ghcr.io/jgero/${bin.pname}";
-          tag = "latest";
+          tag = "${bin.version}";
           contents = with pkgs; [ cacert ];
           maxLayers = 10;
           config = {
