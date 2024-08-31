@@ -1,4 +1,4 @@
-module github.com/jgero/matrix-self-service
+module github.com/jgero/synapse-keycloak-self-service
 
 go 1.22.5
 
