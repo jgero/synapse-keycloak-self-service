@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OIDC Synapse Matrix account self service</title>
+</head>
+
+<body>
+    <h1>OIDC Synapse Matrix account self service</h1>
+    <p>
+        Hello {{ .Name }}<br>
+    </p>
+    <p>Type the username you want to use here:</p>
+    <form action="/signup" method="post" target="response">
+        <input type="text" name="username" value="{{ .PreferredUsername }}">
+        <button type="submit">Create account</button>
+    </form>
+    <p>Response from the server:</p>
+    <iframe name="response" width="500" height="300"></iframe>
+</body>
+
+</html>
